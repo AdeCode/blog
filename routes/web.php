@@ -13,21 +13,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user.post');
-});
-Route::get('/user/blog', function () {
-    return view('user.blog');
+Route::group(['namespace' => 'App\Http\Controllers\User'], function(){
+    Route::get('/','HomeController@index');
+    Route::get('/post/{post}','PostController@post')->name('post');
 });
 
-Route::get('/post', function () {
-    return view('user.post');
-})->name('post');
+Route::group(['namespace' => 'App\Http\Controllers\Admin'], function(){
+    Route::get('admin/home','HomeController@index')->name('admin.home');
 
-Route::get('admin/home', function () {
-    return view('admin.home');
+    //Users route
+    Route::resource('admin/user','UserController');
+
+    //post routes
+    Route::resource('admin/post','PostController');
+
+    //tag routes
+    Route::resource('admin/tag','TagController');
+
+    //category routes
+    Route::resource('admin/category','CategoryController');    
 });
 
-Route::get('admin/post', function () {
-    return view('admin.posts.post');
-});
+
+
+// Route::get('/post', function () {
+//     return view('user.post');
+// })->name('post');
+
+// Route::get('admin/home', function () {
+//     return view('admin.home');
+// });
+
+// Route::get('admin/post', function () {
+//     return view('admin.posts.post');
+// });
+
+// Route::get('admin/tag', function () {
+//     return view('admin.tag.tag');
+// });
+
+// Route::get('admin/category', function () {
+//     return view('admin.category.category');
+// });
