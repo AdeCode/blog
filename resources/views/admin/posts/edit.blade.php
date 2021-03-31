@@ -36,7 +36,8 @@
           </div>
           @include('includes.messages')
           <!-- form start -->
-          <form action="{{route('post.update',$post->id)}}" method="POST">
+          <form action="{{route('post.update',$post->id)}}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="card-body">
