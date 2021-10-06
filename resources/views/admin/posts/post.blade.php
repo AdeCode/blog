@@ -9,7 +9,7 @@
 @endsection
 @section('formSelect')
 <link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">
-  <link rel="stylesheet" href="{{asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 @endsection
 @section('main-content')
 <div class="content-wrapper">

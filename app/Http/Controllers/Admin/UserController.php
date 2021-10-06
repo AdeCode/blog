@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,9 +13,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function index()
     {
-        return view('admin.user.show');
+        $users = Admin::all();
+        return view('admin.user.show', compact('users'));
     }
 
     /**

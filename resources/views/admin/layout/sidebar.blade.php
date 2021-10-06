@@ -73,6 +73,17 @@
                   <p>Role</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link"
+                  onclick="event.preventDefault();
+                    document.getElementById('logoutForm').submit();">                
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Log out</p>
+                </a>
+                <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                  @csrf
+                </form>
+              </li>
           </li>
         
         </ul>

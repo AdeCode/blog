@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Text Editors</h1>
+          <h1>Tag</h1>
         </div>
         
       </div>
@@ -27,46 +27,31 @@
       <div class="col-md-12">
         <div class="card card-outline card-info">
           <div class="card-header">
-            <h2 class="card-title">Create User</h2>
+            <h2 class="card-title">Edit Tag</h2>
           </div>
-          @include('includes.messages')
+         @include('includes.messages')
           <!-- form start -->
-          <form action="{{route('user.store')}}" method="POST">
+          <form action="{{route('tag.update',$tag->id)}}" method="POST">
             @csrf
+            @method('PATCH')
             <div class="card-body">
               <div class="row justify-content-center">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="name">User Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter User Name">
+                    <label for="name">Tag Title</label>
+                    <input type="text" class="form-control" value="{{$tag->name}}" id="name" name="name" placeholder="Enter Post Tag">
                   </div>
                   <div class="form-group">
-                    <label for="slug">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="password">
-                  </div>
-                  <div class="form-group">
-                    <label for="confirm_password">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="role">Assign Role</label>
-                    <select name="role" id="role" class="form-control">
-                      <option value="0">Editor</option>
-                      <option value="1">Publisher</option>
-                      <option value="2">Writer</option>
-                    </select>
+                    <label for="slug">Tag Slug</label>
+                    <input type="text" class="form-control" id="slug" value="{{$tag->slug}}" name="slug" placeholder="slug">
                   </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a type="button" href="{{route('user.index')}}" class="btn btn-warning">Back</a>
+                    <a type="button" href="{{route('tag.index')}}" class="btn btn-warning">Back</a>
                   </div>
                 </div>
               </div>           
-            </div> 
+            </div>         
           </form>
         </div>
       </div>

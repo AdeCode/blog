@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,12 @@ Route::group(['namespace' => 'App\Http\Controllers\User'], function(){
     Route::get('post/category/{category}','HomeController@category')->name('category'); 
 });
 
-Route::group(['namespace' => 'App\Http\Controllers\Admin'], function(){
+Route::get('admin-login',[App\Http\Controllers\Admin\Auth\LoginController::class,'showLoginForm'])->name('adminLoginPost');
+
+Route::post('admin-login',[App\Http\Controllers\Admin\Auth\LoginController::class,'login'])->name('adminLoginPost');
+
+Route::group(['namespace' => 'App\Http\Controllers\Admin','middleware' => 'auth:admin'], function(){
+    //adminroutes
     Route::get('admin/home','HomeController@index')->name('admin.home');
 
     //Users route
@@ -32,11 +38,35 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin'], function(){
     //tag routes
     Route::resource('admin/tag','TagController');
 
+    //role routes
+    Route::resource('admin/role','RoleController');
+
     //category routes
     Route::resource('admin/category','CategoryController');    
 
     //Admin auth routes
-    Route::get('admin-login', 'Auth\LoginController@showLoginForm')->name('admin.login');
+    // Route::get('admin-login','Auth\LoginController@showLoginForm')->name('adminLoginPost');
+
+    // Route::post('admin-login','Auth\LoginController@login')->name('adminLoginPost');
+
+});
+
+Route::group(['namespace' => 'App\Http\Controllers\Auth'], function(){
+    
+    //Route::post('admin-logout', 'AdminAuthController@logout')->name('adminLogout');
+    Route::middleware(['auth:admin'])->group(function() {
+        //Route::get('admin-login', 'AdminAuthController@showLoginForm')->name('admin.login');
+    
+        //Route::post('admin-login', 'AdminAuthController@postLogin')->name('adminLoginPost');
+    
+    });
+    
+});
+
+
+Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
+	// Admin Dashboard
+	Route::get('dashboard','AdminController@dashboard')->name('dashboard');	
 });
 
 

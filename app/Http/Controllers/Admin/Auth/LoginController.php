@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
+use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'admin/home';
 
     /**
      * Create a new controller instance.
@@ -34,15 +37,64 @@ class LoginController extends Controller
      * @return void
      */
 
+    
+
     public function showLoginForm()
     {
         return view('admin.login');
     }
 
-    public function __construct()
+
+    public function login(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+        $this->validateLogin($request);
+
+        if($this->attemptLogin($request)){
+            return $this->sendLoginResponse($request);
+        }
+
+        return $this->sendFailedLoginResponse($request);
     }
 
+    // public function login(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+    //     if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
+    //     {
+    //         $user = auth()->guard('admin')->user();
+            
+    //         \Session::put('success','You are Login successfully!!');
+    //         return redirect()->route('dashboard');
+            
+    //     } else {
+    //         return back()->with('error','your username and password are wrong.');
+    //     }
+    // }
+
+    
+    // public function logout()
+    // {
+    //     auth()->guard('admin')->logout();
+    //     \Session::flush();
+    //     \Sessioin::put('success','You are logout successfully');        
+    //     return redirect(route('adminLogin'));
+    // }
+
+
+    public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logout');
+    }
+
+
+    public function guard()
+    {
+        return Auth::guard('admin');
+    }
+
+    
 
 }
