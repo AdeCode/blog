@@ -27,7 +27,7 @@
       <div class="col-md-12">
         <div class="card card-outline card-info">
           <div class="card-header">
-            <h2 class="card-title">Create User</h2>
+            <h2 class="card-title">Create Admin</h2>
           </div>
           @include('includes.messages')
           <!-- form start -->
@@ -53,12 +53,34 @@
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
                   </div>
                   <div class="form-group">
-                    <label for="role">Assign Role</label>
-                    <select name="role" id="role" class="form-control">
-                      <option value="0">Editor</option>
-                      <option value="1">Publisher</option>
-                      <option value="2">Writer</option>
-                    </select>
+                    <label for="password">Assign Role</label>
+
+                    <div class="row">
+                      @foreach ($roles as $role)
+                      <div class="col-md-4">
+                        <div class="checkbox">
+                          <label class="mr-2">
+                            <input type="checkbox" value="{{$role->id}}" name="role[]">{{$role->name}}
+                          </label>
+                        </div>
+                      </div>
+                      @endforeach
+                      {{-- <div class="col-md-4">
+                        <div class="checkbox">
+                          <label class="mr-2"><input type="checkbox">Editor</label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="checkbox">
+                          <label><input type="checkbox">Editor</label>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="checkbox">
+                          <label><input type="checkbox">Editor</label>
+                        </div>
+                      </div> --}}
+                    </div>                                       
                   </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>

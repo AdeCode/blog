@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Role;
+use App\Models\Admin\Permission;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('admin.role.show', compact('roles'));
-        //
+        $permissions = Permission::all();
+        return view('admin.permission.show', compact('permissions'));
     }
 
     /**
@@ -27,8 +26,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.role.create');
+        return view('admin.permission.create');
     }
 
     /**
@@ -40,13 +38,13 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:50|unique:roles'
+            'name' => 'required|max:50|unique:permissions'
         ]);
-        $role = new Role;
-        $role->name = $request->name;
-        $role->save();
-        return redirect(route('role.index'));
+        $permission = new Permission;
+        $permission->name = $request->name;
+        $permission->save();
 
+        return redirect(route('permission.index'));
     }
 
     /**
@@ -68,8 +66,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        return view('admin.role.edit', compact('role'));
+        $permission = Permission::find($id);
+        return view('admin.permission.edit', compact('permission'));
     }
 
     /**
@@ -82,12 +80,12 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|max:50|unique:roles'
+            'name'=>'required|max:50'
         ]);
-        $role = Role::find($id);
-        $role->name = $request->name;
-        $role->save();
-        return redirect(route('role.index'));
+        $permission = Permission::find($id);
+        $permission->name = $request->name;
+        $permission->save();
+        return redirect(route('permission.index'))->with('message', 'Permission updated successfully');
     }
 
     /**
@@ -98,7 +96,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::where('id',$id)->delete();
-        return redirect(route('role.index'));
+        Permission::where('id', $id)->delete();
+        return redirect()->back()->with('message','Permission deleted successfully');
     }
 }

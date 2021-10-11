@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Role</h1>
+          <h1>Permission</h1>
         </div>
         
       </div>
@@ -27,24 +27,24 @@
       <div class="col-md-12">
         <div class="card card-outline card-info">
           <div class="card-header">
-            <h2 class="card-title">Edit Role</h2>
+            <h2 class="card-title">Edit permission</h2>
           </div>
          @include('includes.messages')
           <!-- form start -->
-          <form action="{{route('role.update',$role->id)}}" method="POST">
+          <form action="{{route('permission.update',$permission->id)}}" method="POST">
             @csrf
             @method('PATCH')
             <div class="card-body">
               <div class="row justify-content-center">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="name">Role Title</label>
-                    <input type="text" class="form-control" value="{{$role->name}}" id="name" name="name" placeholder="Enter Role">
+                    <label for="name">Permission Title</label>
+                    <input type="text" class="form-control" value="{{$permission->name}}" id="name" name="name" placeholder="Enter Role">
                   </div>
                   
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a type="button" href="{{route('role.index')}}" class="btn btn-warning">Back</a>
+                    <a type="button" href="{{route('permission.index')}}" class="btn btn-warning">Back</a>
                   </div>
                 </div>
               </div>           

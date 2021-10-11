@@ -41,14 +41,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin','middleware' => 'auth:
     //role routes
     Route::resource('admin/role','RoleController');
 
+    //permission roPermission
+    Route::resource('admin/permission','PermissionController');
+
     //category routes
     Route::resource('admin/category','CategoryController');    
-
-    //Admin auth routes
-    // Route::get('admin-login','Auth\LoginController@showLoginForm')->name('adminLoginPost');
-
-    // Route::post('admin-login','Auth\LoginController@login')->name('adminLoginPost');
-
+    
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Auth'], function(){

@@ -37,12 +37,12 @@
               <div class="row justify-content-center">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="name">Role Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Post Role">
+                    <label for="name">Role Title</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Role">
                   </div>                  
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a type="button" href="{{route('tag.index')}}" class="btn btn-warning">Back</a>
+                    <a type="button" href="{{route('role.index')}}" class="btn btn-warning">Back</a>
                   </div>
                 </div>
               </div>           
