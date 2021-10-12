@@ -12,6 +12,7 @@ class Admin extends Authenticatable
     use HasFactory,Notifiable;
 
     protected $guarded = array();
+    
     protected $fillable = [
         'name',
         'email',
@@ -28,4 +29,14 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
 }
