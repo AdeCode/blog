@@ -31,6 +31,7 @@
         <div class="card-header">
           <h3 class="card-title">Users</h3>
           <a href="{{route('user.create')}}" class="float-right btn btn-success">Add New</a>
+          @include('includes.messages')
         </div>
         <!-- /.card-header -->
         <div class="card-body">

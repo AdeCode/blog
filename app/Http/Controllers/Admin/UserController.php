@@ -45,7 +45,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'phone' => 'required|numeric|min:9',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        $request['password'] = bcrypt($request->password);
+        $user = Admin::create($request->all());
+        return redirect(route('user.index'));
     }
 
     /**
@@ -67,7 +75,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Admin::find($id);
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -90,6 +99,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Admin::where('id', $id)->delete();
+        return redirect()->back()->with('message','User successfully deleted');
     }
 }

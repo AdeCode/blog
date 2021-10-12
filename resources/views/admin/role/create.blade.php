@@ -39,7 +39,49 @@
                   <div class="form-group">
                     <label for="name">Role Title</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter Role">
-                  </div>                  
+                  </div> 
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <label for="">Posts Permissions</label>
+                      @foreach ($permissions as $permission)
+                        @if ($permission->for === 'post')
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="permission[]" value="{{$permission->id}}">{{$permission->name}}
+                            </label>                        
+                          </div>                          
+                        @endif
+                      @endforeach
+                      
+                    </div>
+                    <div class="col-lg-4">
+                      <label for="">Users Permissions</label>
+                      @foreach ($permissions as $permission)
+                        @if ($permission->for === 'user')
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="permission[]" value="{{$permission->id}}">{{$permission->name}}
+                            </label>                        
+                          </div>
+                        @endif
+                        
+                      @endforeach                      
+                    </div> 
+                    <div class="col-lg-4">
+                      <label for="">Other Permissions</label>
+                      @foreach ($permissions as $permission)
+                        @if ($permission->for === 'other')
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="permission[]" value="{{$permission->id}}">{{$permission->name}}
+                            </label>                        
+                          </div>
+                        @endif
+                        
+                      @endforeach                      
+                    </div> 
+                  </div>      
+                      
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a type="button" href="{{route('role.index')}}" class="btn btn-warning">Back</a>

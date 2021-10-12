@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Add Permission</h1>
+          <h1>User</h1>
         </div>
         
       </div>
@@ -27,33 +27,28 @@
       <div class="col-md-12">
         <div class="card card-outline card-info">
           <div class="card-header">
-            <h2 class="card-title">Permission</h2>
+            <h2 class="card-title">Edit User</h2>
           </div>
          @include('includes.messages')
           <!-- form start -->
-          <form action="{{route('permission.store')}}" method="POST">
+          <form action="{{route('user.update',$user->id)}}" method="POST">
             @csrf
+            @method('PATCH')
             <div class="card-body">
               <div class="row justify-content-center">
                 <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="name">Permission Title</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter permission">
-                  </div> 
-                  
-                  <div class="form-group">
-                    <label for="for">Permission for</label>
-                    <select name="for" id="for" class="form-control">
-                      <option selected disable>Select Permission For</option>
-                      <option value="user">User</option>
-                      <option value="post">Post</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div> 
-
+                    <div class="form-group">
+                        <label for="name">User Name</label>
+                        <input type="text" class="form-control" value="{{$user->name}}" id="name" name="name" placeholder="Enter User Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" value="{{$user->email}}" id="email" name="email" placeholder="email">
+                      </div>
+                    
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a type="button" href="{{route('permission.index')}}" class="btn btn-warning">Back</a>
+                    <a type="button" href="{{route('user.index')}}" class="btn btn-warning">Back</a>
                   </div>
                 </div>
               </div>           
