@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
 use Validator;
@@ -54,6 +55,19 @@ class LoginController extends Controller
         }
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function credentials(Request $request)
+    {
+        $admin = Admin::where('email',$request->email)->first();
+        if($admin->status == 0){
+            return ['email'=>'inactive','password'=>'Your account is not active, 
+            please contact the admin'];
+
+        }else{
+
+            return ['email'=>$request->email,'password'=>$request->password,'status'=>1];
+        }
     }
 
     // public function login(Request $request)

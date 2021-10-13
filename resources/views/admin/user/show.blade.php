@@ -41,6 +41,7 @@
               <th>S/No</th>
               <th>User Name</th>
               <th>Assigned Role</th>
+              <th>Status</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -56,6 +57,7 @@
                   @endforeach
 
                 </td>
+                <td>{{$user->status ? 'Active' : 'Not Active'}}</td>
                 <td>
                   <a href="{{route('user.edit',$user->id)}}"><i class="far fa-edit"></i></a>
                 </td>
