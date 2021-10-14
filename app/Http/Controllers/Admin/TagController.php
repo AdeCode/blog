@@ -17,6 +17,7 @@ class TagController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+        $this->middleware('can:posts.tag');
     }
     
     public function index()
@@ -36,6 +37,11 @@ class TagController extends Controller
         return view('admin.tag.tag');
     }
 
+
+    public function createMore()
+    {
+        return view('admin.tag.tag');
+    }
     /**
      * Store a newly created resource in storage.
      *

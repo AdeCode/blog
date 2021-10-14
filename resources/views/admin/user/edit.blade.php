@@ -75,7 +75,7 @@
                           @if (old('status') == 1 || $user->status == 1)
                             checked
                           @endif
-                        >Status
+                        >Active
                       </label>
                     </div>
                   </div>

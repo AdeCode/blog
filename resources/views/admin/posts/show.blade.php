@@ -30,7 +30,9 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Available Posts</h3>
-          <a href="{{route('post.create')}}" class="float-right btn btn-success">Add New</a>
+          @can('posts.create', Auth::user())
+            <a href="{{route('post.new')}}" class="float-right btn btn-success">Add New</a>          
+          @endcan
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -41,8 +43,12 @@
               <th>Post Title</th>
               <th>Post Sub-title</th>
               <th>Post Slug</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              @can('posts.update', Auth::user())
+                <th>Edit</th>
+              @endcan
+              @can('posts.delete', Auth::user())
+                <th>Delete</th>              
+              @endcan
             </tr>
             </thead>
             <tbody>
@@ -52,24 +58,29 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->subtitle}}</td>
                 <td>{{$post->slug}}</td>
-                <td>
-                  <a href="{{route('post.edit',$post->id)}}"><i class="far fa-edit"></i></a>
-                </td>
-                <td>
-                  <form id="delete-form-{{$post->id}}" action="{{route('post.destroy', $post->id)}}" style="display: none" method="POST">
-                    @csrf
-                    {{method_field('DELETE')}}
-                  </form>
-                  <a href="{{route('post.index')}}" onclick="
-                    if(confirm('Are you sure, you want to delete this?'))
-                      {
-                        event.preventDefault();
-                        document.getElementById('delete-form-{{$post->id}}').submit();
-                      }
-                      else{
-                        event.preventDefault();
-                      }"><i class="fas fa-trash-alt"></i></a>
-                  </td>                
+                @can('posts.update', Auth::user())
+                  <td>
+                    <a href="{{route('post.edit',$post->id)}}"><i class="far fa-edit"></i></a>
+                  </td>
+                @endcan
+                @can('posts.delete', Auth::user())
+                  <td>
+                    <form id="delete-form-{{$post->id}}" action="{{route('post.destroy', $post->id)}}" style="display: none" method="POST">
+                      @csrf
+                      {{method_field('DELETE')}}
+                    </form>
+                    <a href="{{route('post.index')}}" onclick="
+                      if(confirm('Are you sure, you want to delete this?'))
+                        {
+                          event.preventDefault();
+                          document.getElementById('delete-form-{{$post->id}}').submit();
+                        }
+                        else{
+                          event.preventDefault();
+                        }"><i class="fas fa-trash-alt"></i>
+                    </a>
+                  </td>                                  
+                @endcan
               </tr>
               @endforeach                                               
             </tfoot>

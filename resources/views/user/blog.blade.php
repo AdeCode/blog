@@ -20,7 +20,10 @@
           </a>
           <p class="post-meta">Posted by
             <a href="#">Start Bootstrap</a>
-            {{$post->created_at->diffForHumans()}}</p>
+            {{$post->created_at->diffForHumans()}}.
+            <small>0</small>
+            <a href=""><i class="fas fa-thumbs-up"></i></a>
+          </p>
         </div>
         <hr>
         @endforeach     

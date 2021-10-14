@@ -21,6 +21,8 @@ Route::group(['namespace' => 'App\Http\Controllers\User'], function(){
     Route::get('post/category/{category}','HomeController@category')->name('category'); 
 });
 
+
+
 Route::get('admin-login',[App\Http\Controllers\Admin\Auth\LoginController::class,'showLoginForm'])->name('adminLoginPost');
 
 Route::post('admin-login',[App\Http\Controllers\Admin\Auth\LoginController::class,'login'])->name('adminLoginPost');
@@ -46,8 +48,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin','middleware' => 'auth:
 
     //category routes
     Route::resource('admin/category','CategoryController');    
-    
+
+    //create new post
+    Route::get('new/post','PostController@create')->name('post.new');
+
 });
+
+//Route::get('/greet','App\Http\Controllers\Admin\PostController@greet');
 
 Route::group(['namespace' => 'App\Http\Controllers\Auth'], function(){
     
